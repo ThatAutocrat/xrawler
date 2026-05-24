@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&family=Cinzel:wght@400;700&display=swap');
+
+:root {
+  --bg: #080810;
+  --bg2: #0f0f1a;
+  --bg3: #141420;
+  --surface: #1a1a2e;
+  --surface2: #1e1e35;
+  --border: #2a2a4a;
+  --red: #c0392b;
+  --red-bright: #ff4444;
+  --red-glow: rgba(192, 57, 43, 0.4);
+  --green: #2ecc71;
+  --green-dim: #1a7a45;
+  --amber: #f39c12;
+  --purple: #8e44ad;
+  --gray: #5a5a7a;
+  --text: #e8e8f0;
+  --text-dim: #8888aa;
+  --font-title: 'Cinzel', serif;
+  --font-horror: 'Creepster', cursive;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated background particles */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(192,57,43,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(142,68,173,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 80%, rgba(192,57,43,0.15) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Web pattern overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(192,57,43,0.04)' stroke-width='0.5'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none' stroke='rgba(192,57,43,0.04)' stroke-width='0.5'/%3E%3Ccircle cx='50' cy='50' r='10' fill='none' stroke='rgba(192,57,43,0.04)' stroke-width='0.5'/%3E%3Cline x1='50' y1='10' x2='50' y2='90' stroke='rgba(192,57,43,0.03)' stroke-width='0.5'/%3E%3Cline x1='10' y1='50' x2='90' y2='50' stroke='rgba(192,57,43,0.03)' stroke-width='0.5'/%3E%3Cline x1='22' y1='22' x2='78' y2='78' stroke='rgba(192,57,43,0.03)' stroke-width='0.5'/%3E%3Cline x1='78' y1='22' x2='22' y2='78' stroke='rgba(192,57,43,0.03)' stroke-width='0.5'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+#root { position: relative; z-index: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+/* Animations */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.4; }
+  94% { opacity: 1; }
+  96% { opacity: 0.6; }
+  97% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 10px var(--red-glow); }
+  50% { box-shadow: 0 0 30px var(--red-glow), 0 0 60px rgba(192,57,43,0.2); }
+}
+
+@keyframes rise-from-grave {
+  0% { opacity: 0; transform: translateY(40px) scale(0.9); filter: blur(4px); }
+  60% { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fall-in {
+  0% { opacity: 0; transform: translateY(-30px) rotateX(20deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px) rotate(-1deg); }
+  40% { transform: translateX(4px) rotate(1deg); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes scan-line {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+@keyframes tombstone-rise {
+  0% { opacity: 0; transform: translateY(60px) scale(0.8); }
+  70% { transform: translateY(-5px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spider-crawl {
+  0% { transform: translateX(-100px) rotate(-10deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(calc(100vw + 100px)) rotate(10deg); opacity: 0; }
+}
+
+@keyframes drip {
+  0% { height: 0; opacity: 1; }
+  80% { opacity: 1; }
+  100% { height: 40px; opacity: 0; }
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+
+.animate-rise { animation: rise-from-grave 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.animate-fall { animation: fall-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.animate-shake { animation: shake 0.5s ease; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-flicker { animation: flicker 4s infinite; }
+.animate-pulse-red { animation: pulse-red 2s ease-in-out infinite; }
+
+/* Tombstone card */
+.tombstone {
+  animation: tombstone-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Progress bar */
+.progress-bar-fill {
+  animation: progress-fill 0.4s ease forwards;
+}
