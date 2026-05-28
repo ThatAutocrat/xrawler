@@ -5,11 +5,35 @@ import { crawl } from "./crawler.js";
 
 const app = new Hono();
 
+// 1. Lock CORS
 app.use("*", cors({
-  origin: "*",
+  origin: "https://xrawler.vercel.app",
   allowMethods: ["GET", "POST", "OPTIONS"],
   allowHeaders: ["Content-Type"],
 }));
+
+// 2. Rate limiting
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    return false;
+  }
+  if (entry.count >= 5) return true;
+  entry.count++;
+  return false;
+}
+
+app.use("/api/*", async (c, next) => {
+  const ip = c.req.header("x-forwarded-for") ?? "unknown";
+  if (isRateLimited(ip)) {
+    return c.json({ error: "Too many requests. Try again in a minute." }, 429);
+  }
+  await next();
+});
 
 app.get("/", (c) => c.json({ status: "XRAWLER backend alive 🕷️" }));
 
