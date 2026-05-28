@@ -172,7 +172,7 @@ export default function App() {
           }}>
             <div style={{ fontSize: 40, marginBottom: "0.75rem" }}>💀</div>
             <div style={{ fontFamily: "var(--font-horror)", fontSize: 22, color: "var(--red-bright)", marginBottom: "0.5rem" }}>
-              The crawl perished
+              Blocked by this site so lets look up something else unless u wanna land us both in trouble
             </div>
             <div style={{ color: "var(--text-dim)", fontSize: 14, marginBottom: "1.25rem" }}>{error}</div>
             <button
